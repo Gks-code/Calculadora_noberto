@@ -14,15 +14,102 @@
         </header>
 
         <nav>
-            <ul class="nav-buttons"> <li><a href="#" class="nav-btn active" onclick="loadPage('home'); return false;">🏠 Home</a></li>
-                <li><a href="cadastro.html" class="nav-btn" onclick="loadPage('cadastro'); return true;">👥 Cadastro de Alunos</a></li>
-                <li><a href="notas.html" class="nav-btn" onclick="loadPage('notas'); return true;">📝 Lançamento de Notas</a></li>
-                <li><a href="historico.html" class="nav-btn" onclick="loadPage('historico'); return true;">📊 Histórico</a></li>
-            </ul>
+            <div class="nav-buttons">
+                <button class="nav-btn active" onclick="showPage('home')">🏠 Home</button>
+                <button class="nav-btn" onclick="showPage('cadastro')">👥 Cadastro de Alunos</button>
+                <button class="nav-btn" onclick="showPage('notas')">📝 Lançamento de Notas</button>
+                <button class="nav-btn" onclick="showPage('historico')">📊 Histórico</button>
+            </div>
         </nav>
 
-        <main id="content-area">
-        </main>
+        <!-- PÁGINA HOME -->
+        <div id="home" class="page active">
+            <h2>🎯 Bem-vindo ao Sistema de Média Escolar</h2>
+            
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalAlunos">0</div>
+                    <div class="stat-label">Total de Alunos</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalAprovados">0</div>
+                    <div class="stat-label">Aprovados</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalReprovados">0</div>
+                    <div class="stat-label">Reprovados</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="mediaGeral">0.0</div>
+                    <div class="stat-label">Média Geral</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>📋 Como usar o sistema:</h3>
+                <p><strong>1. Cadastro de Alunos:</strong> Registre os alunos com nome e frequência.</p>
+                <p><strong>2. Lançamento de Notas:</strong> Selecione um aluno e adicione suas notas. A média é calculada automaticamente.</p>
+                <p><strong>3. Histórico:</strong> Visualize todos os dados dos alunos com seus resultados finais.</p>
+                <p><strong>📏 Critério de Aprovação:</strong> Média ≥ 6.0 = Aprovado | Média < 6.0 = Reprovado</p>
+            </div>
+        </div>
+
+        <!-- PÁGINA CADASTRO DE ALUNOS -->
+        <div id="cadastro" class="page">
+            <h2>👥 Cadastro de Alunos</h2>
+            
+            <div class="card">
+                <h3>➕ Novo Aluno</h3>
+                <div class="form-group">
+                    <label for="nomeAluno">Nome do Aluno:</label>
+                    <input type="text" id="nomeAluno" placeholder="Digite o nome completo do aluno">
+                </div>
+                <div class="form-group">
+                    <label for="frequenciaAluno">Frequência (%):</label>
+                    <input type="number" id="frequenciaAluno" min="0" max="100" placeholder="Ex: 85">
+                </div>
+                <button class="btn" onclick="cadastrarAluno()">Cadastrar Aluno</button>
+            </div>
+
+            <div id="listaAlunos">
+                <h3>📋 Alunos Cadastrados</h3>
+                <div id="alunosCadastrados"></div>
+            </div>
+        </div>
+
+        <!-- PÁGINA LANÇAMENTO DE NOTAS -->
+        <div id="notas" class="page">
+            <h2>📝 Lançamento de Notas</h2>
+            
+            <div class="card">
+                <h3>🎯 Selecionar Aluno</h3>
+                <div class="form-group">
+                    <label for="selectAluno">Escolha um aluno:</label>
+                    <select id="selectAluno" onchange="selecionarAluno()">
+                        <option value="">Selecione um aluno...</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="notasContainer" style="display: none;">
+                <div class="card">
+                    <h3 id="nomeAlunoSelecionado">Notas do Aluno</h3>
+                    <div id="notasExistentes"></div>
+                    <div class="form-group">
+                        <label for="novaNota">Nova Nota (0-10):</label>
+                        <input type="number" id="novaNota" min="0" max="10" step="0.1" placeholder="Ex: 7.5">
+                        <button class="btn" onclick="adicionarNota()" style="margin-top: 10px;">Adicionar Nota</button>
+                    </div>
+                    <div id="mediaAluno"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PÁGINA HISTÓRICO -->
+        <div id="historico" class="page">
+            <h2>📊 Histórico Completo</h2>
+            <div id="historicoContainer"></div>
+        </div>
     </div>
 
     <script src="js/estiloGeral_eduardo.js"></script>
